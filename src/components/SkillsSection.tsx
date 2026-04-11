@@ -1,138 +1,95 @@
-import { motion } from 'framer-motion';
+import React from 'react';
+// Import ikon jika Anda menggunakan library seperti lucide-react
+// import { Languages, Globe, Brain } from 'lucide-react';
 
-const skills = {
-  frontend: [
-    { name: 'React', level: 95 },
-    { name: 'TypeScript', level: 90 },
-    { name: 'Next.js', level: 88 },
-    { name: 'Tailwind CSS', level: 95 },
-    { name: 'Vue.js', level: 75 },
-  ],
-  backend: [
-    { name: 'Node.js', level: 90 },
-    { name: 'Python', level: 85 },
-    { name: 'PostgreSQL', level: 88 },
-    { name: 'MongoDB', level: 82 },
-    { name: 'GraphQL', level: 78 },
-  ],
-  tools: [
-    { name: 'Git', level: 95 },
-    { name: 'Docker', level: 80 },
-    { name: 'AWS', level: 75 },
-    { name: 'Figma', level: 85 },
-    { name: 'CI/CD', level: 82 },
-  ],
-};
+// 1. Data Baru (Diletakkan di luar atau di dalam komponen)
+const akademikData = [
+  {
+    category: "Bahasa",
+    icon: "🗣️", // Contoh emoji, bisa diganti ikon Lucide
+    skills: [
+      { name: "Bahasa Indonesia", level: 97 },
+      { name: "Bahasa Inggris", level: 90 },
+      { name: "Bahasa Arab", level: 85 },
+      { name: "Bahasa Jepang", level: 70 },
+    ],
+  },
+  {
+    category: "IPS",
+    icon: "🌎",
+    skills: [
+      { name: "Sosiologi", level: 90 },
+      { name: "Ekonomi", level: 85 },
+      { name: "Geografi", level: 88 },
+      { name: "Sejarah", level: 82 },
+    ],
+  },
+  {
+    category: "IPA",
+    icon: "🧠",
+    skills: [
+      { name: "Biologi", level: 95 },
+      { name: "Kimia", level: 80 },
+      { name: "Fisika", level: 75 },
+      { name: "Matematika", level: 85 },
+    ],
+  },
+];
 
-function SkillBar({ name, level, delay }: { name: string; level: number; delay: number }) {
+const SkillsSection = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay }}
-      className="space-y-2"
-    >
-      <div className="flex justify-between items-center">
-        <span className="font-medium">{name}</span>
-        <span className="text-sm text-muted-foreground">{level}%</span>
-      </div>
-      <div className="h-2 bg-muted rounded-full overflow-hidden">
-        <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: `${level}%` }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: delay + 0.2, ease: 'easeOut' }}
-          className="h-full rounded-full bg-gradient-to-r from-primary to-accent"
-        />
-      </div>
-    </motion.div>
-  );
-}
-
-export default function SkillsSection() {
-  return (
-    <section id="skills" className="py-20 md:py-32">
+    <section className="py-20 bg-stone-950 text-stone-100"> {/* Background gelap Anda */}
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="text-primary font-medium mb-2 block">Keahlian</span>
-          <h2 className="font-display text-3xl md:text-5xl font-bold mb-4">
-            Skills &amp; Teknologi
-          </h2>
-          <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
-        </motion.div>
+        
+        {/* 2. Ubah Judul Utama Di Sini */}
+        <div className="text-center mb-16 space-y-2">
+          <p className="text-cyan-400 font-medium">Keahlian</p> {/* Label kecil Anda */}
+          <h2 className="text-4xl md:text-5xl font-bold">Kemampuan Akademis</h2>
+          <div className="w-24 h-1 bg-cyan-400 mx-auto rounded-full mt-4" />
+        </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {/* Frontend */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="p-6 glass rounded-2xl shadow-card hover:shadow-card-hover transition-shadow"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 rounded-xl bg-primary/10">
-                <span className="text-2xl">🎨</span>
+        {/* 3. Rendering Kartu Secara Dinamis */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {akademikData.map((card, cardIndex) => (
+            // Komponen Kartu (Gunakan styling kartu gelap Anda)
+            <div key={cardIndex} className="p-8 rounded-3xl border border-stone-800 bg-stone-900 shadow-xl space-y-8 hover:border-cyan-400/50 transition-colors">
+              
+              {/* Header Kartu (Ikon & Kategori) */}
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-xl bg-stone-800 border border-stone-700 flex items-center justify-center text-3xl">
+                  {/* Tampilkan ikon di sini */}
+                  {card.icon}
+                </div>
+                <h3 className="text-2xl font-semibold text-stone-100">{card.category}</h3>
               </div>
-              <h3 className="font-display text-xl font-bold">Frontend</h3>
-            </div>
-            <div className="space-y-4">
-              {skills.frontend.map((skill, index) => (
-                <SkillBar key={skill.name} {...skill} delay={index * 0.1} />
-              ))}
-            </div>
-          </motion.div>
 
-          {/* Backend */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="p-6 glass rounded-2xl shadow-card hover:shadow-card-hover transition-shadow"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 rounded-xl bg-primary/10">
-                <span className="text-2xl">⚙️</span>
+              {/* Daftar Skill di Dalam Kartu */}
+              <div className="space-y-5">
+                {card.skills.map((skill, skillIndex) => (
+                  <div key={skillIndex} className="space-y-2">
+                    {/* Nama Skill & Persentase */}
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="font-medium text-stone-300">{skill.name}</span>
+                      <span className="text-stone-400">{skill.level}%</span>
+                    </div>
+                    
+                    {/* Progress Bar (Gunakan warna cyan Anda) */}
+                    <div className="w-full h-2 bg-stone-800 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-cyan-400 rounded-full" 
+                        style={{ width: `${skill.level}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
-              <h3 className="font-display text-xl font-bold">Backend</h3>
-            </div>
-            <div className="space-y-4">
-              {skills.backend.map((skill, index) => (
-                <SkillBar key={skill.name} {...skill} delay={index * 0.1} />
-              ))}
-            </div>
-          </motion.div>
 
-          {/* Tools */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="p-6 glass rounded-2xl shadow-card hover:shadow-card-hover transition-shadow"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 rounded-xl bg-primary/10">
-                <span className="text-2xl">🛠️</span>
-              </div>
-              <h3 className="font-display text-xl font-bold">Tools &amp; Lainnya</h3>
             </div>
-            <div className="space-y-4">
-              {skills.tools.map((skill, index) => (
-                <SkillBar key={skill.name} {...skill} delay={index * 0.1} />
-              ))}
-            </div>
-          </motion.div>
+          ))}
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default SkillsSection;
